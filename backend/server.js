@@ -4,6 +4,7 @@ const dotenv = require('dotenv'); // load enviroment variables
 const authRoutes = require('./routes/authRoutes');
 const mongoose = require('mongoose')
 dotenv.config();
+const PORT = 3000;
 
 const app = express();
 
@@ -11,8 +12,8 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('public'));
-app.use('/api/auth', authRoutes);
+app.use(express.static('../frontend/public'));
+app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
   res.send('Server loaded');
