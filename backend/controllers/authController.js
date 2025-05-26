@@ -3,6 +3,19 @@ const UserModel = require('../models/user')
 const jwt = require('jsonwebtoken');
 
 
+exports.createTempUser = async (req, res) => {
+  const existingUser = await UserModel.findOne({ userCode: 23345234 });
+  if (existingUser) {
+    return res.status(400).json({ error: 'userCode already exists' });
+  }
+
+  await UserModel.create({
+    userCode: 23345234,
+    email: 'joao@example.comsc',
+    username: 'joaosilva',
+    password: 'senhaSegura123'
+  });
+}
 
 exports.login = async (req, res) => {
   const email= req.body.email;
@@ -19,7 +32,6 @@ exports.login = async (req, res) => {
     expiresIn: '1h',
   });
 
-  sessionStorage.setItem('token', token);
   res.json({ token });
   } else res.status(401).json({ erro: 'Password incorreta'})
 };
