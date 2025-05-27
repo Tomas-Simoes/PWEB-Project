@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/login.css" defer>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container hidden-panel">
+            <form action="#" class="form">
+                <h1>Create Account</h1>
+                <input type="text" placeholder="Name" />
+                <input type="email" placeholder="Email" />
+                <input type="password" placeholder="Password" />
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form class="form" method="POST" id="loginForm">
+                <h1 class="form-title">Sign in</h1>
+                <input type="email" placeholder="Email" id="email" name="email"/>
+                <input type="password" placeholder="Password" id="password" name="password" />
+                <a href="#">Forgot your password?</a>
+                <button type="submit" id="submit">Sign In</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                    <h1>New here?</h1>
+                    <p>Enter your personal details and start your journey with us</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>
+            Created by Simões, Leonardo e Rafael
+        </p>
+    </footer>    
+    <script src="../src/index.js"></script>
+</body>
+</html>
