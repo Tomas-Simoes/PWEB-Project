@@ -4,6 +4,8 @@ const dotenv = require('dotenv'); // load enviroment variables
 const authRoutes = require('./routes/authRoutes');
 const solarRoutes = require('./routes/installationRoutes')
 const mongoose = require('mongoose')
+const path = require('path');
+
 dotenv.config();
 const PORT = 3000;
 
@@ -13,7 +15,11 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('../frontend/public'));
+app.use(express.static(path.join(__dirname, '../frontend/public')));
+
+app.get('/clientPage', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/clientPage.html'));
+});
 
 app.use('/auth', authRoutes);
 app.use('/solarPanels', solarRoutes);
