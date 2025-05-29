@@ -23,14 +23,14 @@ app.get('/', (req, res) => {
   res.send('Server loaded');
 });
 
-mongoose.connect('mongodb+srv://Leo:LeoLeo@cluster0.ebxrmim.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect('mongodb+srv://pweb:pass123@cluster0.aeijj70.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
   .then(() => {
     console.log('Conectado ao MongoDB');
-    
+
     app.listen(PORT, () => {
       console.log(`Server Running : ${PORT}`);
     });
-})
+  })
   .catch((err) => {
     console.error('Erro ao conectar ao MongoDB:', err);
-});
+  });

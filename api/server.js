@@ -1,47 +1,33 @@
 const express = require('express');
 const cors = require('cors');
+const axios = require('axios');
 
 const app = express();
-const PORT = 3000;
-const REFRESH_INTERVAL_SECONDS = 10; // change this as needed
+const PORT = 4000;
 
 app.use(cors());
 
-let clients = [];
-
-// Sample client names
-const clientNames = [
-    'João Silva',
-    'Maria Santos',
-    'Carlos Oliveira',
-    'Ana Costa',
-    'Pedro Martins',
-    'Beatriz Almeida'
-];
-
-// Helper to generate random float between min and max
-function getRandomFloat(min, max) {
-    return +(Math.random() * (max - min) + min).toFixed(2);
-}
-
-// Generate new random client data
-function generateClientData() {
-    clients = clientNames.map(name => ({
+function generateRandomClientData(clientNames) {
+    return clientNames.map(name => ({
         name,
-        dailyProduction: getRandomFloat(10, 30)
+        daily: Math.floor(Math.random() * 101),
     }));
-    console.log(`Client data updated at ${new Date().toLocaleTimeString()}`);
 }
 
-// Initial data + interval
-generateClientData();
-setInterval(generateClientData, REFRESH_INTERVAL_SECONDS * 1000);
+// Endpoint to get production data
+app.get('/clients', async (req, res) => {
+    try {
+        const response = await axios.get('http://localhost:3000/client-names');
+        const clientNames = response.data;
 
-// API endpoint to return current client data
-app.get('/clients', (req, res) => {
-    res.json(clients);
+        const data = generateRandomClientData(clientNames);
+        res.json(data);
+    } catch (err) {
+        console.error('Failed to fetch client names:', err.message);
+        res.status(500).json({ error: 'Could not fetch client names' });
+    }
 });
 
 app.listen(PORT, () => {
-    console.log(`✅ API running at http://localhost:${PORT}`);
+    console.log(`Random data API listening on http://localhost:${PORT}`);
 });
