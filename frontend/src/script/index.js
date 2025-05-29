@@ -2,7 +2,7 @@ const form = document.getElementById('loginForm');
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
+  console.log("yo")
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
 
@@ -17,24 +17,26 @@ form.addEventListener('submit', async (e) => {
 
     const data = await res.json();
 
+    console.log(res.ok)
+    console.log(data)
     if (res.ok && data.token) {
       sessionStorage.setItem('token', data.token);
-      sessionStorage.setItem('token', data.role);
+      sessionStorage.setItem('role', data.role);
       console.log("Login correto!");
 
       switch (data.role) {
         case 'tech':
-            window.location.href = '../public/techPage.html';
+            window.location.href = '/techPage.html'; // Remove ../frontend/src/
             break;
         case 'client':
-            window.location.href = '../public/clientPage.html';
+            window.location.href = '/clientPage.html';
             break;
         case 'monitor':
-            window.location.href = '../public/energyMonitoring.html';
+            window.location.href = '/energyMonitoring.html';
             break;
         default:
             console.warn('Role desconhecida:', data.role);
-            window.location.href = '/pages/dashboard.html';
+            window.location.href = '/index.html';
             break;
     }
 

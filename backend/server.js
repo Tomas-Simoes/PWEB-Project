@@ -3,6 +3,7 @@ const morgan = require('morgan'); // middleware to log requests
 const dotenv = require('dotenv'); // load enviroment variables 
 const authRoutes = require('./routes/authRoutes');
 const solarRoutes = require('./routes/installationRoutes')
+const path = require("path")
 const mongoose = require('mongoose')
 dotenv.config();
 const PORT = 3000;
@@ -13,7 +14,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('../frontend/public'));
+app.use(express.static(path.join(__dirname, '../frontend/src')));
 
 app.use('/auth', authRoutes);
 app.use('/solarPanels', solarRoutes);
