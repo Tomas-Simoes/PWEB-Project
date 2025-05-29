@@ -13,10 +13,13 @@ exports.login = async (req, res) => {
   if (!user) return res.status(404).json({ erro: 'User não encontrado' });
 
   if(password == user.password) {
-    const token = jwt.sign({ 
+    payload = {
       id: user.id,
-      email: user.email 
-    }, process.env.JWT_SECRET, {
+      email: user.email,
+      role: user.role
+    }
+    const token = jwt.sign(payload,
+      process.env.JWT_SECRET, {
     expiresIn: '1h',
   });
 
