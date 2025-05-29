@@ -23,14 +23,14 @@ form.addEventListener('submit', async (e) => {
       console.log("Login correto!");
 
       switch (data.role) {
-        case 'technician':
-            window.location.href = '/public/techPage.html';
+        case 'tech':
+            window.location.href = '../public/techPage.html';
             break;
         case 'client':
-            window.location.href = '/public/clientPage.html';
+            window.location.href = '../public/clientPage.html';
             break;
-        case 'operation manager':
-            window.location.href = '/public/energyMonitoring.html';
+        case 'monitor':
+            window.location.href = '../public/energyMonitoring.html';
             break;
         default:
             console.warn('Role desconhecida:', data.role);
