@@ -5,6 +5,8 @@ const authRoutes = require('./routes/authRoutes');
 const solarRoutes = require('./routes/installationRoutes')
 const path = require("path")
 const mongoose = require('mongoose')
+const path = require('path');
+
 dotenv.config();
 const PORT = 3000;
 
