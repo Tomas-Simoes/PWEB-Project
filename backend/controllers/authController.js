@@ -20,7 +20,7 @@ exports.login = async (req, res) => {
     expiresIn: '1h',
   });
 
-  res.json({ token });
+  res.json({ token }).status(200);
   } else res.status(401).json({ erro: 'Password incorreta'})
 };
 
