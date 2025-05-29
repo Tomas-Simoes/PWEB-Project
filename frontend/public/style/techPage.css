@@ -1,7 +1,6 @@
 body {
-	font-family: 'Montserrat', sans-serif;
-	background: linear-gradient(to right, rgb(244, 76, 70), #FF416C);
-
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to right, rgb(244, 76, 70), #FF416C);
     min-height: 100vh;
     padding: 20px;
 }
@@ -11,6 +10,89 @@ body {
     margin: 0 auto;
 }
 
+.search-container {
+    background: rgba(255,255,255,0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.621);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.search-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.search-form {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    padding: 12px 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
+    font-size: 1rem;
+    width: 300px;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #FF416C;
+    box-shadow: 0 0 10px rgba(255, 65, 108, 0.3);
+}
+
+.search-btn {
+    background: linear-gradient(to right, rgb(244, 76, 70), #FF416C);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.clear-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+.carousel-container {
+    position: relative;
+    background: rgba(255,255,255,0.95);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.621);
+    display: none;
+}
+
+.carousel-container.show {
+    display: block;
+}
 
 .nav-btn {
     background: linear-gradient(to right, rgb(244, 76, 70), #FF416C);
@@ -39,14 +121,6 @@ body {
     transform: none;
 }
 
-.carousel-container {
-    position: relative;
-    background: rgba(255,255,255,0.95);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.621);
-}
-
 .carousel-header {
     display: flex;
     justify-content: space-between;
@@ -63,6 +137,7 @@ body {
     display: flex;
     gap: 10px;
 }
+
 .carousel-content {
     position: relative;
     border-radius: 15px;
@@ -129,6 +204,7 @@ body {
     font-weight: bold;
     color: #FF416C;
 }
+
 .registration-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -252,6 +328,13 @@ body {
     font-size: 1rem;
 }
 
+.no-results {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 1.1rem;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -284,4 +367,15 @@ body {
 
 .close:hover {
     color: #bbb;
+}
+
+@media (max-width: 768px) {
+    .search-input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .registration-content {
+        grid-template-columns: 1fr;
+    }
 }

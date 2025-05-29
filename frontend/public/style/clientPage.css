@@ -1,9 +1,7 @@
-* {
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-  }
   
   body {
+    background: linear-gradient(to right, rgb(244, 76, 70), #FF416C);
+    font-family: 'Montserrat', sans-serif;
     display: flex;
 
     align-items: center;
@@ -92,8 +90,8 @@ button:hover {
     gap: 40px;
   }
   
-  .client-info,
-  .painel-info {
+  .col-1,
+  .col-2 {
     flex: 1;
     min-width: 250px;
   }

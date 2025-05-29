@@ -3,12 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar Panel Admin Dashboard</title>
-    <link rel="stylesheet" href="style/techPage.css">        
+    <title>Solar Panel Technician Dashboard</title>
+    <link rel="stylesheet" href="style/techPage.css">    
 </head>
 <body>
     <div class="container">
-        <div class="carousel-container">
+        <div class="search-container">
+            <h1 class="search-title">Solar Panel Registration Evaluation</h1>
+            <div class="search-form">
+                <input type="text" 
+                       id="searchInput" 
+                       class="search-input" 
+                       placeholder="Search by client email..."
+                       autocomplete="off">
+                <button class="search-btn" id="searchBtn">Search</button>
+            </div>
+        </div>
+
+        <div class="carousel-container" id="carouselContainer">
             <div class="carousel-header">
                 <h2 class="carousel-title">Registration Reviews</h2>
                 <div class="carousel-controls">
@@ -18,383 +30,17 @@
             </div>
 
             <div class="carousel-content" id="carouselContent">
-
+                <div class="no-results" id="noResults">
+                    No registrations found for the search criteria.
+                </div>
             </div>
 
             <div class="pagination">
-                <span id="currentSlide">1</span> of <span id="totalSlides">12</span>
+                <span id="currentSlide">0</span> of <span id="totalSlides">0</span>
             </div>
         </div>
     </div>
 
-    <script>
-        const registrations = [
-            {
-                id: "REG-2025-001",
-                nome: "João Silva",
-                nif: "123456789",
-                email: "joao.silva@email.com",
-                telefone: "+351 912 345 678",
-                endereco: "Rua das Flores, 123, Lisboa",
-                data: "2025-03-15",
-                n_paineis: 12,
-                potencia: 4.8,
-                marca_paineis: "SunPower Maxeon 3",
-                status: "pending",
-                images: [
-                    "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=400",
-                    "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=400",
-                    "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-002",
-                nome: "Maria Santos",
-                nif: "987654321",
-                email: "maria.santos@email.com",
-                telefone: "+351 913 456 789",
-                endereco: "Avenida da Liberdade, 456, Porto",
-                data: "2025-03-20",
-                n_paineis: 8,
-                potencia: 3.2,
-                marca_paineis: "LG NeON R",
-                status: "approved",
-                images: [
-                    "https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?w=400",
-                    "https://images.unsplash.com/photo-1624397640148-949b1732bb51?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-003",
-                nome: "Carlos Oliveira",
-                nif: "456789123",
-                email: "carlos.oliveira@email.com",
-                telefone: "+351 914 567 890",
-                endereco: "Rua do Sol, 789, Coimbra",
-                data: "2025-03-25",
-                n_paineis: 16,
-                potencia: 6.4,
-                marca_paineis: "Canadian Solar HiKu",
-                status: "pending",
-                images: [
-                    "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=400",
-                    "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=400",
-                    "https://images.unsplash.com/photo-1580256792674-11573c471e4b?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-004",
-                nome: "Ana Ferreira",
-                nif: "321654987",
-                email: "ana.ferreira@email.com",
-                telefone: "+351 915 678 901",
-                endereco: "Praça Central, 321, Braga",
-                data: "2025-04-01",
-                n_paineis: 10,
-                potencia: 4.0,
-                marca_paineis: "Jinko Solar Tiger Pro",
-                status: "pending",
-                images: [
-                    "https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-005",
-                nome: "Pedro Costa",
-                nif: "654987321",
-                email: "pedro.costa@email.com",
-                telefone: "+351 916 789 012",
-                endereco: "Rua Nova, 654, Aveiro",
-                data: "2025-04-05",
-                n_paineis: 20,
-                potencia: 8.0,
-                marca_paineis: "Trina Solar Vertex",
-                status: "rejected",
-                images: [
-                    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400",
-                    "https://images.unsplash.com/photo-1564137957-3bb4b7a04ad3?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-006",
-                nome: "Sofia Rodrigues",
-                nif: "789123456",
-                email: "sofia.rodrigues@email.com",
-                telefone: "+351 917 890 123",
-                endereco: "Alameda dos Descobrimentos, 987, Faro",
-                data: "2025-04-10",
-                n_paineis: 14,
-                potencia: 5.6,
-                marca_paineis: "REC Alpha Pure",
-                status: "pending",
-                images: [
-                    "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400",
-                    "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-007",
-                nome: "Miguel Pereira",
-                nif: "147258369",
-                email: "miguel.pereira@email.com",
-                telefone: "+351 918 901 234",
-                endereco: "Rua do Comércio, 147, Setúbal",
-                data: "2025-04-15",
-                n_paineis: 18,
-                potencia: 7.2,
-                marca_paineis: "LONGi Solar Hi-MO 4m",
-                status: "approved",
-                images: [
-                    "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-008",
-                nome: "Catarina Alves",
-                nif: "963852741",
-                email: "catarina.alves@email.com",
-                telefone: "+351 919 012 345",
-                endereco: "Avenida do Mar, 258, Funchal",
-                data: "2025-04-20",
-                n_paineis: 22,
-                potencia: 8.8,
-                marca_paineis: "First Solar Series 6",
-                status: "pending",
-                images: [
-                    "https://images.unsplash.com/photo-1559302504-64aae6ca6b6d?w=400",
-                    "https://images.unsplash.com/photo-1624397640148-949b1732bb51?w=400",
-                    "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-009",
-                nome: "Ricardo Sousa",
-                nif: "852741963",
-                email: "ricardo.sousa@email.com",
-                telefone: "+351 920 123 456",
-                endereco: "Rua da Paz, 369, Viseu",
-                data: "2025-04-25",
-                n_paineis: 6,
-                potencia: 2.4,
-                marca_paineis: "Panasonic HIT",
-                status: "pending",
-                images: [
-                    "https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-010",
-                nome: "Inês Martins",
-                nif: "741852963",
-                email: "ines.martins@email.com",
-                telefone: "+351 921 234 567",
-                endereco: "Travessa do Castelo, 741, Évora",
-                data: "2025-05-01",
-                n_paineis: 15,
-                potencia: 6.0,
-                marca_paineis: "Hyundai RG Series",
-                status: "approved",
-                images: [
-                    "https://images.unsplash.com/photo-1580256792674-11573c471e4b?w=400",
-                    "https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-011",
-                nome: "Tiago Fernandes",
-                nif: "159357486",
-                email: "tiago.fernandes@email.com",
-                telefone: "+351 922 345 678",
-                endereco: "Largo da Matriz, 159, Leiria",
-                data: "2025-05-05",
-                n_paineis: 24,
-                potencia: 9.6,
-                marca_paineis: "Q CELLS Q.PEAK DUO",
-                status: "pending",
-                images: [
-                    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400",
-                    "https://images.unsplash.com/photo-1564137957-3bb4b7a04ad3?w=400",
-                    "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400"
-                ]
-            },
-            {
-                id: "REG-2025-012",
-                nome: "Bárbara Lima",
-                nif: "486159357",
-                email: "barbara.lima@email.com",
-                telefone: "+351 923 456 789",
-                endereco: "Rua da Esperança, 486, Santarém",
-                data: "2025-05-10",
-                n_paineis: 11,
-                potencia: 4.4,
-                marca_paineis: "Risen Energy Titan",
-                status: "pending",
-                images: [
-                    "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?w=400"
-                ]
-            }
-        ];
-
-        let currentIndex = 0;
-
-        function initCarousel() {
-            const carouselContent = document.getElementById('carouselContent');
-            
-            registrations.forEach((registration, index) => {
-                const slide = createSlide(registration, index);
-                carouselContent.appendChild(slide);
-            });
-
-            showSlide(0);
-        }
-
-        function createSlide(registration, index) {
-            const slide = document.createElement('div');
-            slide.className = 'registration-slide';
-            slide.innerHTML = `
-                <div class="registration-header">
-                    <div class="registration-id">${registration.id}</div>
-                    <div class="status-badge status-${registration.status}">${registration.status}</div>
-                </div>
-                <div class="registration-content">
-                    <div class="info-section">
-                        <h3>Client Information</h3>
-                        <div class="info-row">
-                            <span class="info-label">Name:</span>
-                            <span class="info-value">${registration.nome}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">NIF:</span>
-                            <span class="info-value">${registration.nif}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Email:</span>
-                            <span class="info-value">${registration.email}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Phone:</span>
-                            <span class="info-value">${registration.telefone}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Address:</span>
-                            <span class="info-value">${registration.endereco}</span>
-                        </div>
-                    </div>
-                    <div class="info-section">
-                        <h3>Installation Details</h3>
-                        <div class="info-row">
-                            <span class="info-label">Date:</span>
-                            <span class="info-value">${new Date(registration.data).toLocaleDateString('pt-PT')}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Number of Panels:</span>
-                            <span class="info-value">${registration.n_paineis}</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Total Power:</span>
-                            <span class="info-value">${registration.potencia} kWp</span>
-                        </div>
-                        <div class="info-row">
-                            <span class="info-label">Panel Brand:</span>
-                            <span class="info-value">${registration.marca_paineis}</span>
-                        </div>
-                    </div>
-                    <div class="images-section">
-                        <h3>Installation Images</h3>
-                        <div class="images-grid">
-                            ${registration.images.map(img => `
-                                <div class="image-item" onclick="openModal('${img}')">
-                                    <img src="${img}" alt="Installation image" loading="lazy">
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                </div>
-                ${registration.status === 'pending' ? `
-                    <div class="validation-section">
-                        <button class="validate-btn approve-btn" onclick="validateRegistration(${index}, 'approved')">
-                            Approve
-                        </button>
-                        <button class="validate-btn reject-btn" onclick="validateRegistration(${index}, 'rejected')">
-                            Reject
-                        </button>
-                    </div>
-                ` : ''}
-            `;
-            return slide;
-        }
-
-        function showSlide(index) {
-            const slides = document.querySelectorAll('.registration-slide');
-            slides.forEach(slide => slide.classList.remove('active'));
-            slides[index].classList.add('active');
-            
-            currentIndex = index;
-            document.getElementById('currentSlide').textContent = index + 1;
-            
-            // Update navigation buttons
-            document.getElementById('prevBtn').disabled = index === 0;
-            document.getElementById('nextBtn').disabled = index === slides.length - 1;
-        }
-
-        function nextSlide() {
-            if (currentIndex < registrations.length - 1) {
-                showSlide(currentIndex + 1);
-            }
-        }
-
-        function prevSlide() {
-            if (currentIndex > 0) {
-                showSlide(currentIndex - 1);
-            }
-        }
-
-        function validateRegistration(index, status) {
-            registrations[index].status = status;
-            
-            // Update the slide
-            const carouselContent = document.getElementById('carouselContent');
-            carouselContent.innerHTML = '';
-            
-            registrations.forEach((registration, i) => {
-                const slide = createSlide(registration, i);
-                carouselContent.appendChild(slide);
-            });
-            
-            showSlide(currentIndex);
-            
-            // Show confirmation
-            alert(`Registration ${registrations[index].id} has been ${status}!`);
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            initCarousel();
-            
-            document.getElementById('nextBtn').addEventListener('click', nextSlide);
-            document.getElementById('prevBtn').addEventListener('click', prevSlide);
-            
-            // Modal close
-            document.querySelector('.close').addEventListener('click', function() {
-                document.getElementById('imageModal').style.display = 'none';
-            });
-            
-            // Close modal when clicking outside
-            window.addEventListener('click', function(event) {
-                const modal = document.getElementById('imageModal');
-                if (event.target === modal) {
-                    modal.style.display = 'none';
-                }
-            });
-            
-            // Keyboard navigation
-            document.addEventListener('keydown', function(event) {
-                if (event.key === 'ArrowRight') nextSlide();
-                if (event.key === 'ArrowLeft') prevSlide();
-                if (event.key === 'Escape') {
-                    document.getElementById('imageModal').style.display = 'none';
-                }
-            });
-        });
-    </script>
+    <script src="../src/techPage.js"></script>
 </body>
 </html>
