@@ -21,7 +21,6 @@ form.addEventListener('submit', async (e) => {
     if (res.ok && data.token) {
       sessionStorage.setItem('token', data.token);
       sessionStorage.setItem('role', data.role);
-      alert("Login successful!");
 
       switch (data.role) {
         case 'tech':
