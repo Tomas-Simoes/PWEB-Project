@@ -1,17 +1,20 @@
+const mongoose = require('mongoose');
 
-const { Schema, model } = require('mongoose');
-
-const InstallationSchema = new Schema({
-  installationAddress: { type: String, unique: true, required: true },
-  email: { type: String, required: true },
+const InstallationSchema = new mongoose.Schema({
+  installationAddress: { type: String, required: true },
   nif: { type: Number, required: true },
-  telemovel: { type: Number, required: true },
-  installationDate: { type: Date, required: true },
-  quantidade : {type: Number, required: true}, 
-  potencia : {type: Number, required: true},
-  modelo : {type: String, required: true},
-  role:     { type: String, enum: ['client','tech'], default: 'client' },
+  phone: { type: String, required: true },
+  installDate: { type: Date, required: true },
+  panelCount: { type: Number, required: true },
+  power: { type: Number, required: true },
+  model: { type: String, required: true },
+  imagePaths: [String],
+  clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  status: {
+    type: String,
+    enum: ['pending', 'approved', 'rejected'],
+    default: 'pending'
+  }
 });
 
-
-module.exports = model('Installation', InstallationSchema);
+module.exports = mongoose.model('Installation', InstallationSchema);

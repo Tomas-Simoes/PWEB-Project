@@ -1,21 +1,25 @@
-const express = require("express")
+const Installation = require('../models/installation');
 
 exports.registerInstallation = async (req, res) => {
+  try {
+    const novaInstalacao = new Installation({
+      installationAddress: req.body.endereco,
+      nif: req.body.nif,
+      phone: req.body.telefone,
+      installDate: req.body.data,
+      panelCount: req.body.n_paineis,
+      power: req.body.potencia,
+      model: req.body.marca_paineis,
+      status: 'pending',
+      imagePaths: req.files.map(file => 'uploads/' + file.filename),
+      clientId: req.user.id
+    });
 
-    try {
-        console.log("controller")
-        // verificar se o cliente existe na db
+    await novaInstalacao.save();
+    console.log('Installation created:', novaInstalacao);
 
-        // AQUI  - verificar cliente 
-
-        // se exister na db criar a instalacao 
-
-        // AQUI - adicionar a table 
-
-        // return res.status(201).json(newInstall)
-        
-    } catch(error) {
-        console.log("Error registering a new instalation: ", error);
-        return res.status(500).json({ erro: "Error registering a new instalation."})
-    }
-}
+    res.status(200).json({ message: 'Installation successfully registered!' });
+  } catch (err) {
+    res.status(500).json({ error: 'Error registering installation.', details: err.message });
+  }
+};

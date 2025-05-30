@@ -10,41 +10,42 @@
   <div class="container">
     <div class="form-section">
       <h1>Register Installation</h1>
-      <form action="/panels/submit-registration" method="POST" enctype="multipart/form-data">
+      <form action="/panels/submit-registration" method="POST" enctype="multipart/form-data" id="submit-registration">
         <div class="form-columns">
           <div class="col-1">
             <label for="nif">NIF:</label>
-            <input type="text" id="nif" name="nif" required>
-      
+            <input type="text" id="nif" name="nif" required pattern="^[125689][0-9]{8}$" title="Enter a valid 9-digit Portuguese NIF">
+
             <label for="telefone">Phone Number:</label>
-            <input type="tel" id="telefone" name="telefone" required>
-  
+            <input type="tel" id="telefone" name="telefone" required pattern="^(\+351)?\s?[29][0-9]{8}$" title="Enter a valid Portuguese phone number">
+
             <label for="endereco">Installation Address:</label>
             <input type="text" id="endereco" name="endereco" required>
-    
+
             <label for="data">Installation Date:</label>
             <input type="date" id="data" name="data" required>
           </div>
-      
+
           <div class="col-2">
             <label for="n_paineis">Number of Panels:</label>
-            <input type="number" id="n_paineis" name="n_paineis" required>
-      
+            <input type="number" id="n_paineis" name="n_paineis" required min="1">
+
             <label for="potencia">Total Power (kWp):</label>
-            <input type="number" step="0.01" id="potencia" name="potencia" required>
-      
+            <input type="number" step="0.01" id="potencia" name="potencia" required min="0.1">
+
             <label for="marca_paineis">Panel Brand and Model:</label>
             <input type="text" id="marca_paineis" name="marca_paineis" required>
-      
+
             <label for="imagens">Installation Images:</label>
             <input type="file" id="imagens" name="imagens[]" accept="image/*" multiple required>
           </div>
         </div>
         <div class="submit-button-container">
-            <button type="submit">Submit</button>
+          <button type="submit" id="submit">Submit</button>
         </div>
       </form>
     </div>
   </div>
+  <script src="/src/clientPage.js"></script>
 </body>
 </html>

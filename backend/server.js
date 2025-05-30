@@ -1,12 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
-const dotenv = require('dotenv'); 
+const dotenv = require('dotenv');
+dotenv.config();
 const authRoutes = require('./routes/authRoutes');
 const installationRoutes = require('./routes/installationRoutes')
+const certificationRoutes = require('./routes/certificationRoutes')
 const mongoose = require('mongoose')
 const path = require('path');
 
-dotenv.config();
 const PORT = 3000;
 
 const app = express();
@@ -15,9 +16,11 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, '../frontend/public')));
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
 
-app.use('/src', express.static(path.join(__dirname, '../frontend/src')));
+app.use('/src', express.static(path.join(__dirname, '..', 'frontend', 'src')));
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/clientPage', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/public/clientPage.html'));
@@ -25,6 +28,8 @@ app.get('/clientPage', (req, res) => {
 
 app.use('/auth', authRoutes);
 app.use('/panels', installationRoutes);
+app.use('/certifications', certificationRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('Server loaded');
