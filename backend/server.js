@@ -1,9 +1,8 @@
 const express = require('express');
-const morgan = require('morgan'); // middleware to log requests
-const dotenv = require('dotenv'); // load enviroment variables 
+const morgan = require('morgan');
+const dotenv = require('dotenv'); 
 const authRoutes = require('./routes/authRoutes');
-const solarRoutes = require('./routes/installationRoutes')
-const path = require("path")
+const installationRoutes = require('./routes/installationRoutes')
 const mongoose = require('mongoose')
 const path = require('path');
 
@@ -16,11 +15,16 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static(path.join(__dirname, '../frontend/src')));
+app.use(express.static(path.join(__dirname, '../frontend/public')));
+
+app.use('/src', express.static(path.join(__dirname, '../frontend/src')));
+
+app.get('/clientPage', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/public/clientPage.html'));
+});
 
 app.use('/auth', authRoutes);
-app.use('/solarPanels', solarRoutes);
-
+app.use('/panels', installationRoutes);
 
 app.get('/', (req, res) => {
   res.send('Server loaded');

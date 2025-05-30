@@ -1,9 +1,9 @@
 const express = require("express")
 
 exports.registerInstallation = async (req, res) => {
-    const { clientId, tecData, loc} = req.body;
 
     try {
+        console.log("controller")
         // verificar se o cliente existe na db
 
         // AQUI  - verificar cliente 
