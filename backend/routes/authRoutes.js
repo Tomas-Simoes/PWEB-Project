@@ -7,6 +7,5 @@ router.post('/login', authController.login);
 
 router.post('/logout', authController.logout);
 
-router.put('/createUser', authController.createTempUser);
 
 module.exports = router;

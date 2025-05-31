@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Client Production</title>
+  <link rel="stylesheet" href="style/eneryMonitoring.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="header-title">Client Production Monitoring</h1>
+    <div id="clientList" class="client-list"></div>
+  </div>
+
+  <script>
+    const USE_MOCK = true; 
+
+    async function fetchClientNames() {
+      try {
+        const res = await fetch('http://localhost:3000/client-names');
+        
+        if (!res.ok) throw new Error('Failed to fetch client names');
+        
+        return await res.json();
+      } catch (err) {
+        console.error('Error fetching names:', err);
+        return [];
+      }
+    }
+
+    async function fetchProductionData() {
+      try {
+        const res = await fetch('http://localhost:4000/clients');
+        
+        if (!res.ok) throw new Error('Failed to fetch production data');
+        
+        return await res.json(); // expects: [{ name, daily }, ...]
+      } catch (err) {
+        console.error('Error fetching production:', err);
+        return [];
+      }
+    }
+
+    function getMockData() {
+      return [
+        { name: 'Mock Client A', daily: Math.random() * 100 },
+        { name: 'Mock Client B', daily: Math.random() * 100 },
+        { name: 'Mock Client C', daily: Math.random() * 100 },
+      ];
+    }
+
+    function renderClientList(clients) {
+      const list = document.getElementById('clientList');
+      list.innerHTML = '';
+
+      clients.forEach(client => {
+        const item = document.createElement('div');
+        item.className = 'client-item';
+        item.innerHTML = `
+          <span class="client-name">${client.name}</span>
+          <span class="client-production">${client.daily.toFixed(1)} kWh</span>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    async function update() {
+      if (USE_MOCK) {
+        const mock = getMockData();
+        renderClientList(mock);
+        return;
+      }
+
+      const names = await fetchClientNames();
+      const data = await fetchProductionData();
+
+      const merged = names.map(name => {
+        const production = data.find(c => c.name === name);
+        
+        return {
+          name,
+          daily: production.daily
+        };
+      });
+
+      renderClientList(merged);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      update();
+      setInterval(update, 5000); 
+    });
+  </script>
+</body>
+</html>

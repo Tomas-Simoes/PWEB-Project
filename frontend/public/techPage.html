@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Panel Technician Dashboard</title>
+    <link rel="stylesheet" href="style/techPage.css">    
+</head>
+<body>
+    <div class="container">
+        <div class="search-container">
+            <h1 class="search-title">Solar Panel Registration Evaluation</h1>
+            <div class="search-form">
+                <input type="text" 
+                       id="searchInput" 
+                       class="search-input" 
+                       placeholder="Search by client email..."
+                       autocomplete="off">
+                <button class="search-btn" id="searchBtn">Search</button>
+            </div>
+        </div>
+
+        <div class="carousel-container" id="carouselContainer">
+            <div class="carousel-header">
+                <h2 class="carousel-title">Registration Reviews</h2>
+                <div class="carousel-controls">
+                    <button class="nav-btn" id="prevBtn">←</button>
+                    <button class="nav-btn" id="nextBtn">→</button>
+                </div>
+            </div>
+
+            <div class="carousel-content" id="carouselContent">
+                <div class="no-results" id="noResults">
+                    No registrations found for the search criteria.
+                </div>
+            </div>
+
+            <div class="pagination">
+                <span id="currentSlide">0</span> of <span id="totalSlides">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="/src/techPage.js"></script>
+</body>
+</html>
